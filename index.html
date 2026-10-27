@@ -57,26 +57,23 @@ pre{margin:0;padding:12px;white-space:pre-wrap;word-break:break-word;font:13px/1
 </main>
 </div>
 <script>
-// Shared account store: must match admin/index.html
-var USER_KEY='pf_demo_users';
-async function sha(s){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')}
+// Cloud account verification through Supabase Edge Function. Accounts are shared across browsers.
+var SUPABASE_URL='https://ayonwngqrgojtjwvsoxu.supabase.co';
+var SUPABASE_ANON_KEY='sb_publishable_HxtWWN0Vx6jfQk9jxkEXJA_YkXxptsT';
+async function cloudAction(action,payload={}){
+  var res=await fetch(SUPABASE_URL+'/functions/v1/formatter-api',{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_ANON_KEY,'Authorization':'Bearer '+SUPABASE_ANON_KEY},body:JSON.stringify(Object.assign({action:action},payload))});
+  var data=await res.json().catch(function(){return {error:'Invalid server response'}});
+  if(!res.ok||data.error)throw new Error(data.error||'Cloud request failed');return data;
+}
 var AT=0,LK=0;
-try{AT=parseInt(localStorage.getItem('pf_at')||'0',10)||0;LK=parseInt(localStorage.getItem('pf_lk')||'0',10)||0}catch(x){}
-function sv(){try{localStorage.setItem('pf_at',AT);localStorage.setItem('pf_lk',LK)}catch(x){}}
-function readUsers(){try{var u=JSON.parse(localStorage.getItem(USER_KEY)||'[]');return Array.isArray(u)?u:[]}catch(x){return []}}
-async function migrateUsers(){var users=readUsers(),changed=false;for(var i=0;i<users.length;i++){if(users[i].password&&!users[i].passwordHash){users[i].passwordHash=await sha(users[i].password);delete users[i].password;changed=true}}if(changed){try{localStorage.setItem(USER_KEY,JSON.stringify(users))}catch(x){}}return users}
-function setLk(){var on=Date.now()<LK,e=document.getElementById('er');['un','pw','go'].forEach(function(i){document.getElementById(i).disabled=on});if(on){e.textContent='Too many failed attempts. Please try again in 5 minutes.'}else if(LK){LK=0;AT=0;sv();e.textContent=''}}
-setInterval(setLk,1000);setLk();
+function setLk(){var on=Date.now()<LK,e=document.getElementById('er');['un','pw','go'].forEach(function(i){document.getElementById(i).disabled=on});if(on)e.textContent='Too many failed attempts. Please try again in 5 minutes.';else if(LK){LK=0;AT=0;e.textContent=''}}
 async function login(){
-  var u=document.getElementById('un').value.trim(),p=document.getElementById('pw').value,e=document.getElementById('er');
-  if(Date.now()<LK)return;
-  if(!u||!p){e.textContent='Enter both username and password.';return}
-  try{
-    var users=await migrateUsers(),hash=await sha(p);
-    var found=users.find(function(x){return String(x.username||'').toLowerCase()===u.toLowerCase()&&x.passwordHash===hash&&x.enabled!==false});
-    if(found){document.getElementById('lg').classList.add('hide');document.getElementById('app').classList.remove('hide');document.getElementById('pw').value='';ULK=true;LA=Date.now();AT=0;sv();document.getElementById('wl').textContent='Welcome back '+found.username}
-    else{AT++;document.getElementById('pw').value='';if(AT>=5){LK=Date.now()+300000;AT=0;sv();setLk()}else{sv();e.textContent='Incorrect username or password, or this account is disabled.'}}
-  }catch(x){e.textContent='Could not verify login in this browser. Please use a current browser and try again.'}
+ var u=document.getElementById('un').value.trim(),p=document.getElementById('pw').value,e=document.getElementById('er');
+ if(!u||!p){e.textContent='Enter both username and password.';return}
+ document.getElementById('go').disabled=true;e.textContent='Checking account…';
+ try{var data=await cloudAction('user-login',{username:u,password:p});document.getElementById('lg').classList.add('hide');document.getElementById('app').classList.remove('hide');document.getElementById('pw').value='';ULK=true;LA=Date.now();document.getElementById('wl').textContent='Welcome back '+data.username;e.textContent=''}
+ catch(x){e.textContent=x.message==='Invalid username or password'?'Incorrect username or password, or this account is disabled.':'Could not connect to cloud login. '+x.message}
+ finally{document.getElementById('go').disabled=false}
 }
 document.getElementById('go').onclick=login;
 var ULK=false,LA=0;
