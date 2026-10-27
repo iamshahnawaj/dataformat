@@ -5,57 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Project Data Formatter</title>
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mu:#667085;--bd:#d9dde3;--ac:#2f6feb;--b2b:#b45309;--b2c:#0f766e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#f2f6fc;--card:#ffffff;--tx:#14213d;--mu:#64748b;--bd:#dce5f1;--ac:#365cf5;--b2b:#b45309;--b2c:#0f766e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171c;--card:#1e232b;--tx:#e8eaee;--mu:#9aa3b2;--bd:#323946;--ac:#6ea0ff;--b2b:#f59e0b;--b2c:#2dd4bf}}
 :root[data-theme="dark"]{--bg:#14171c;--card:#1e232b;--tx:#e8eaee;--mu:#9aa3b2;--bd:#323946;--ac:#6ea0ff;--b2b:#f59e0b;--b2c:#2dd4bf}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{margin:0;background:radial-gradient(ellipse at top left,#e3ecff 0,transparent 42%),var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 header{padding:18px 20px 6px}h1{margin:0;font-size:20px}p.s{margin:4px 0 0;color:var(--mu);font-size:13px}
 main{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:14px 20px 24px}
 @media(max-width:820px){main{grid-template-columns:1fr}}
-section{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;min-width:0}
+section{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:18px;min-width:0;box-shadow:0 12px 34px rgba(29,55,105,.06)}
 h2{margin:0 0 8px;font-size:14px;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
-textarea{width:100%;height:430px;resize:vertical;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);padding:10px;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
+textarea{width:100%;height:430px;resize:vertical;border:1px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);padding:10px;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
 .row{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap}
-select,button{font:inherit;padding:7px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer}
-button.p{background:var(--ac);border-color:var(--ac);color:#fff}
-.rec{border:1px solid var(--bd);border-radius:10px;margin-bottom:12px;overflow:hidden}
+select,button{font:inherit;padding:9px 13px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;transition:transform .15s,box-shadow .15s}button:hover{box-shadow:0 5px 14px rgba(30,55,100,.10);transform:translateY(-1px)}button:disabled{opacity:.55;cursor:not-allowed;transform:none}
+button.p{background:linear-gradient(135deg,#365cf5,#6a5cf6);border-color:transparent;color:#fff;font-weight:650}
+.rec{border:1px solid var(--bd);border-radius:13px;margin-bottom:12px;overflow:hidden;background:var(--card)}
 .rh{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--bd);gap:8px}
 .tag{font-weight:700;font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid currentColor}
 .B2B{color:var(--b2b)}.B2C{color:var(--b2c)}.B2H{color:var(--ac)}
 pre{margin:0;padding:12px;white-space:pre-wrap;word-break:break-word;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace;overflow-x:auto}
 .em{color:var(--mu);padding:30px 0;text-align:center}
-#lg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.lb{width:100%;max-width:340px;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.lb h1{margin:0}.lb input{padding:9px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+#lg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at top left,#dbe7ff 0,transparent 48%),var(--bg)}
+.lb{width:100%;max-width:390px;background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 70px rgba(32,57,108,.13)}
+.lb h1{margin:0;font-size:27px;letter-spacing:-.03em}.lb input{padding:12px 13px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;outline:none}.lb input:focus,textarea:focus,select:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(54,92,245,.12)}
 #er{color:#d92d20;font-size:13px;min-height:18px}
 .hide{display:none!important}
-#role{padding:9px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
-#admin{max-width:900px;margin:20px auto;padding:20px}
-.admin-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:14px}
-.admin-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:8px}
-.admin-grid input{min-width:0;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}
-.user-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--bd);padding:10px 0;flex-wrap:wrap}
-.warning{font-size:13px;color:#b45309}
-@media(max-width:600px){.admin-grid{grid-template-columns:1fr}}
-
 </style>
 </head>
 <body>
-<div id="lg"><div class="lb"><h1>Project Data Formatter</h1><p class="s">Demo login for the Admin Panel and User Area.</p>
-<input id="role" type="hidden" value="user">
+<div id="lg"><div class="lb"><div style="width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,#365cf5,#7c5cff);display:grid;place-items:center;color:white;font-size:23px;font-weight:800">PF</div><h1>Welcome back</h1><p class="s">Sign in with the account created by your administrator.</p>
 <input id="un" placeholder="Username" autocomplete="username">
 <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
-<div id="er"></div><button class="p" id="go">Sign in</button>
-<p class="warning">Demo only: users are saved in this browser, not shared online. This is not secure access control.</p></div></div>
-<div id="admin" class="hide">
-  <div class="admin-card"><div class="row" style="justify-content:space-between;margin-top:0"><div><h1>Admin Panel</h1><p class="s">Create and manage demo user accounts.</p></div><button id="adminout">Log out</button></div>
-  <p class="warning">Important: this demo stores users only in this browser. It does not create accounts that work for other people or devices.</p></div>
-  <div class="admin-card"><h2>Add user</h2><div class="admin-grid"><input id="newun" placeholder="New username"><input id="newpw" type="password" placeholder="Temporary password"><button class="p" id="adduser">Add user</button></div><div id="adminmsg" class="s" style="margin-top:8px"></div></div>
-  <div class="admin-card"><h2>Users</h2><div id="userlist"></div></div>
-</div>
+<div id="er"></div><button class="p" id="go">Unlock</button></div></div>
 <div id="app" class="hide">
-<header><div class="row" style="justify-content:space-between;margin-top:0"><div id="wl" style="font-weight:600;margin-bottom:2px"></div><button id="userout">Log out</button></div><h1>Project Data Formatter</h1><p class="s">Paste raw project data in any layout. It is sorted into the standard B2B or B2C format automatically.</p></header>
+<header><div id="wl" style="font-weight:600;margin-bottom:2px"></div><h1>Project Data Formatter</h1><p class="s">Paste raw project data in any layout. It is sorted into the standard B2B or B2C format automatically.</p></header>
 <main>
 <section>
 <h2>Raw data</h2>
@@ -74,59 +57,46 @@ pre{margin:0;padding:12px;white-space:pre-wrap;word-break:break-word;font:13px/1
 </main>
 </div>
 <script>
-// GitHub Pages demo authentication. This is NOT secure server-side authentication.
+// Shared account store: must match admin/index.html
+var USER_KEY='pf_demo_users';
 async function sha(s){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')}
-var DEMO_ADMIN='demoadmin', DEMO_ADMIN_HASH='', ADMIN_HASH_READY=false;
-var OV={};
-function getUsers(){try{return JSON.parse(localStorage.getItem('pf_demo_users')||'[]')}catch(e){return []}}
-function saveUsers(users){try{localStorage.setItem('pf_demo_users',JSON.stringify(users));return true}catch(e){return false}}
-function showLogin(msg){document.getElementById('lg').classList.remove('hide');document.getElementById('admin').classList.add('hide');document.getElementById('app').classList.add('hide');document.getElementById('er').textContent=msg||'';document.getElementById('pw').value='';document.getElementById('un').value=''}
+var AT=0,LK=0;
+try{AT=parseInt(localStorage.getItem('pf_at')||'0',10)||0;LK=parseInt(localStorage.getItem('pf_lk')||'0',10)||0}catch(x){}
+function sv(){try{localStorage.setItem('pf_at',AT);localStorage.setItem('pf_lk',LK)}catch(x){}}
+function readUsers(){try{var u=JSON.parse(localStorage.getItem(USER_KEY)||'[]');return Array.isArray(u)?u:[]}catch(x){return []}}
+async function migrateUsers(){var users=readUsers(),changed=false;for(var i=0;i<users.length;i++){if(users[i].password&&!users[i].passwordHash){users[i].passwordHash=await sha(users[i].password);delete users[i].password;changed=true}}if(changed){try{localStorage.setItem(USER_KEY,JSON.stringify(users))}catch(x){}}return users}
+function setLk(){var on=Date.now()<LK,e=document.getElementById('er');['un','pw','go'].forEach(function(i){document.getElementById(i).disabled=on});if(on){e.textContent='Too many failed attempts. Please try again in 5 minutes.'}else if(LK){LK=0;AT=0;sv();e.textContent=''}}
+setInterval(setLk,1000);setLk();
 async function login(){
- var role=document.getElementById('role').value,u=document.getElementById('un').value.trim(),p=document.getElementById('pw').value,e=document.getElementById('er');
- if(!u||!p){e.textContent='Enter username and password.';return}
- var h=await sha(p);
- var found=getUsers().find(function(x){return x.username.toLowerCase()===u.toLowerCase()&&x.passwordHash===h&&x.enabled!==false});
- if(found){document.getElementById('lg').classList.add('hide');document.getElementById('admin').classList.add('hide');document.getElementById('app').classList.remove('hide');document.getElementById('pw').value='';document.getElementById('wl').textContent='Welcome, '+found.username;}
- else e.textContent='User not found or password is incorrect. Ask the demo admin to create your account.';
-}
-function renderUsers(){
- var list=document.getElementById('userlist'),users=getUsers();list.innerHTML='';
- if(!users.length){list.textContent='No users created yet.';return}
- users.forEach(function(u,i){var row=document.createElement('div');row.className='user-row';var label=document.createElement('span');label.textContent=u.username+' — '+(u.enabled===false?'Disabled':'Active');var actions=document.createElement('div');actions.className='row';actions.style.marginTop='0';
- var toggle=document.createElement('button');toggle.textContent=u.enabled===false?'Enable':'Disable';toggle.onclick=function(){var a=getUsers();a[i].enabled=a[i].enabled===false;saveUsers(a);renderUsers()};
- var del=document.createElement('button');del.textContent='Delete';del.onclick=function(){if(confirm('Delete user '+u.username+'?')){var a=getUsers();a.splice(i,1);saveUsers(a);renderUsers()}};
- actions.appendChild(toggle);actions.appendChild(del);row.appendChild(label);row.appendChild(actions);list.appendChild(row);
- });
+  var u=document.getElementById('un').value.trim(),p=document.getElementById('pw').value,e=document.getElementById('er');
+  if(Date.now()<LK)return;
+  if(!u||!p){e.textContent='Enter both username and password.';return}
+  try{
+    var users=await migrateUsers(),hash=await sha(p);
+    var found=users.find(function(x){return String(x.username||'').toLowerCase()===u.toLowerCase()&&x.passwordHash===hash&&x.enabled!==false});
+    if(found){document.getElementById('lg').classList.add('hide');document.getElementById('app').classList.remove('hide');document.getElementById('pw').value='';ULK=true;LA=Date.now();AT=0;sv();document.getElementById('wl').textContent='Welcome back '+found.username}
+    else{AT++;document.getElementById('pw').value='';if(AT>=5){LK=Date.now()+300000;AT=0;sv();setLk()}else{sv();e.textContent='Incorrect username or password, or this account is disabled.'}}
+  }catch(x){e.textContent='Could not verify login in this browser. Please use a current browser and try again.'}
 }
 document.getElementById('go').onclick=login;
+var ULK=false,LA=0;
+function lock(msg){
+  ULK=false;
+  document.getElementById('in').value='';OV={};window._all='';run();
+  document.getElementById('un').value='';document.getElementById('pw').value='';
+  document.getElementById('er').textContent=msg||'';document.getElementById('wl').textContent='';
+  document.getElementById('app').classList.add('hide');document.getElementById('lg').classList.remove('hide');
+}
+['mousemove','keydown','click','touchstart','scroll'].forEach(function(ev){window.addEventListener(ev,function(){if(ULK)LA=Date.now()},true)});
+setInterval(function(){if(ULK&&Date.now()-LA>=1200000)lock('Locked after 20 minutes of inactivity. Please sign in again.')},10000);
 document.getElementById('pw').onkeydown=function(e){if(e.key==='Enter')login()};
 document.getElementById('un').onkeydown=function(e){if(e.key==='Enter')document.getElementById('pw').focus()};
-document.getElementById('adduser').onclick=async function(){
- var u=document.getElementById('newun').value.trim(),p=document.getElementById('newpw').value,msg=document.getElementById('adminmsg');
- if(!u||!p){msg.textContent='Enter both username and password.';return}
- if(u.toLowerCase()===DEMO_ADMIN){msg.textContent='Choose a different username.';return}
- var users=getUsers();if(users.some(function(x){return x.username.toLowerCase()===u.toLowerCase()})){msg.textContent='That username already exists.';return}
- users.push({username:u,passwordHash:await sha(p),enabled:true});
- if(!saveUsers(users)){msg.textContent='Could not save in this browser.';return}
- document.getElementById('newun').value='';document.getElementById('newpw').value='';msg.textContent='Demo user added in this browser.';renderUsers();
-};
-document.getElementById('adminout').onclick=function(){showLogin('')};
-document.getElementById('userout').onclick=function(){document.getElementById('in').value='';OV={};run();showLogin('')};
-// Use a demo admin password. It is visible in the client-side source and must not be used for sensitive accounts.
-sha('Admin@123').then(function(h){DEMO_ADMIN_HASH=h;ADMIN_HASH_READY=true});
-// GitHub Pages admin shortcut: /projectdataformat/admin/ redirects here with ?admin=1.
-// This is a demo-only shortcut, not secure authentication.
-if(new URLSearchParams(window.location.search).get('admin')==='1'){
-  document.getElementById('lg').classList.add('hide');
-  document.getElementById('app').classList.add('hide');
-  document.getElementById('admin').classList.remove('hide');
-  renderUsers();
-}
 var NA='N/A';
 var KEYS={projectname:'name',studytype:'type',counts:'counts',age:'age',gender:'gender',jobtitle:'job',title:'job',industry:'industry',department:'dept',employees:'employees',brand:'brand',revenue:'revenue',company:'company',companyname:'company',county:'county',zipcode:'zip',zip:'zip',postalcode:'zip',nationality:'nationality',householdincome:'hhi',hhi:'hhi',hhiincome:'hhi',income:'hhi',personalincome:'pinc',ethnicity:'ethnicity',ethincity:'ethnicity',race:'ethnicity',occupation:'occupation',employmentstatus:'empstatus',maritalstatus:'marital',oppo:'oppo',country:'country',tnxprojectid:'tnx',parentid:'parent',childid:'child',respondentid:'resp',ipaddress:'ip',status:'status',note:'note',notes:'note'};
 var B2B=[['Age','age'],['Gender','gender'],['Job title','job'],['Industry','industry'],['Department','dept'],['Employees','employees'],['Brand','brand'],['Revenue','revenue'],['Company','company'],['County','county'],['Zip code','zip'],['Nationality','nationality'],['Household Income','hhi']];
 var B2C=[['Age','age'],['Gender','gender'],['ZIP Code','zip'],['Country','country'],['Nationality','nationality'],['Ethnicity','ethnicity'],['Household Income','hhi'],['Personal Income','pinc'],['Brand','brand'],['Company','company'],['Occupation','occupation'],['Employment Status','empstatus'],['Marital Status','marital']];
 var IP=/\b\d{1,3}(?:\.\d{1,3}){3}\b/;
+var OV={};
 var PN=/^(\d+\s*[.)]\s*)?(GMS|TRN|IER)\b/i;
 var HX=/\b(b2h|hcp|patients?|cancer|oncolog|tumou?r|prostate|leukemia|lymphoma|diabet|t1d|t2d|cardio|cardiac|heart|hypertension|asthma|copd|arthritis|psoria|migraine|alzheimer|parkinson|stroke|kidney|ckd|obesity|hiv|hepatitis|epilep|lupus|crohn|colitis|schizo|sclerosis|physician|doctor|nurse|surgeon|pharmac|dentist|clinician|urolog|neurolog|dermatolog|gastro|endocrin|rheumat|pediatric|radiolog|anesthes|caregiver|healthcare|health care|medical|hospital|clinical)/i;
 var PROF=['age','gender','job','industry','dept','employees','brand','revenue','company','county','zip','nationality','hhi','pinc','ethnicity','occupation','empstatus','marital','oppo'];
